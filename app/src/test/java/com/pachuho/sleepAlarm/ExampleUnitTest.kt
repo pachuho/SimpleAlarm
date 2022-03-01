@@ -1,4 +1,4 @@
-package com.pachuho.sleepAlram
+package com.pachuho.sleepAlarm
 
 import org.junit.Test
 
