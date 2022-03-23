@@ -3,12 +3,12 @@
     <style name="Theme.SleepAlarm" parent="Theme.Design.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/sky_blue</item>
-        <item name="colorPrimaryVariant">@color/sky_blue</item>
+        <item name="colorPrimary">@color/base_color</item>
+        <item name="colorPrimaryVariant">@color/base_color</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/sky_blue</item>
-        <item name="colorSecondaryVariant">@color/sky_blue</item>
+        <item name="colorSecondary">@color/base_color</item>
+        <item name="colorSecondaryVariant">@color/base_color</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

@@ -9,5 +9,14 @@
         android:id="@+id/alarmFragment"
         android:name="com.pachuho.sleepAlarm.views.alarm.AlarmFragment"
         android:label="fragment_alarm"
-        tools:layout="@layout/fragment_alarm" />
+        tools:layout="@layout/fragment_alarm" >
+        <action
+            android:id="@+id/action_alarmFragment_to_creationAlarmFragment"
+            app:destination="@id/creationAlarmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/creationAlarmFragment"
+        android:name="com.pachuho.sleepAlarm.views.creation.CreationAlarmFragment"
+        android:label="fragment_creation_alarm"
+        tools:layout="@layout/fragment_creation_alarm" />
 </navigation>

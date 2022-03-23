@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_record"
-    app:startDestination="@id/recordFragment">
+    app:startDestination="@id/recordingFragment">
 
     <fragment
-        android:id="@+id/recordFragment"
-        android:name="com.pachuho.sleepAlarm.views.record.RecordFragment"
+        android:id="@+id/recordingFragment"
+        android:name="com.pachuho.sleepAlarm.views.record.RecordingFragment"
         android:label="fragment_record"
-        tools:layout="@layout/fragment_record" />
+        tools:layout="@layout/fragment_recording" />
 </navigation>

@@ -8,24 +8,26 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import timber.log.Timber
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes val layoutId: Int) : Fragment() {
-    lateinit var binding: B
-    protected abstract val viewModel: VM
+    private var _binding: B? = null
+    val binding get() = _binding!!
 
+    protected abstract val viewModel: VM
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        binding.lifecycleOwner = this
+        _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

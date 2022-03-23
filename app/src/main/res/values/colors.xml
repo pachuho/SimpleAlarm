@@ -3,6 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="sky_blue">#466AB5</color>
+    <color name="blue">#6FB2D2</color>
+    <color name="base_color">#85C88A</color>
+    <color name="yellow">#EBD671</color>
+    <color name="gray">#EEEEEE</color>
 
 </resources>
