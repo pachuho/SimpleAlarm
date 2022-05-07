@@ -6,13 +6,13 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.pachuho.sleepAlarm.views.creation.CreationAlarmViewModel" />
+            type="com.pachuho.sleepAlarm.view.creation.CreationAlarmViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.pachuho.sleepAlarm.views.creation.CreationAlarmFragment">
+        tools:context="com.pachuho.sleepAlarm.view.creation.CreationAlarmFragment">
 
         <ProgressBar
             android:visibility="@{viewModel.isTest1()? View.VISIBLE : View.GONE}"

@@ -1,9 +1,8 @@
-package com.pachuho.sleepAlarm.views.creation
+package com.pachuho.sleepAlarm.view.creation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.pachuho.sleepAlarm.base.BaseViewModel
-import timber.log.Timber
 
 class CreationAlarmViewModel: BaseViewModel() {
     private val _isTest = MutableLiveData(false)

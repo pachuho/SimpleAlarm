@@ -1,4 +1,4 @@
-package com.pachuho.sleepAlarm.views.record
+package com.pachuho.sleepAlarm.view.record
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.pachuho.sleepAlarm.views.main
+package com.pachuho.sleepAlarm.view.main
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -22,6 +22,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             vm = viewModel
         }
         setUpBottomNavigationBar()
+
     }
 
     private fun setUpBottomNavigationBar() = with(binding) {

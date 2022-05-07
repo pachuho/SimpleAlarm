@@ -1,4 +1,4 @@
-package com.pachuho.sleepAlarm.views.main
+package com.pachuho.sleepAlarm.view.main
 
 import com.pachuho.sleepAlarm.base.BaseViewModel
 

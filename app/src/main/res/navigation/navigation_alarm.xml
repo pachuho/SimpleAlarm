@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/alarmFragment"
-        android:name="com.pachuho.sleepAlarm.views.alarm.AlarmFragment"
+        android:name="com.pachuho.sleepAlarm.view.alarm.AlarmFragment"
         android:label="fragment_alarm"
         tools:layout="@layout/fragment_alarm" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/creationAlarmFragment"
-        android:name="com.pachuho.sleepAlarm.views.creation.CreationAlarmFragment"
+        android:name="com.pachuho.sleepAlarm.view.creation.CreationAlarmFragment"
         android:label="fragment_creation_alarm"
         tools:layout="@layout/fragment_creation_alarm" />
 </navigation>

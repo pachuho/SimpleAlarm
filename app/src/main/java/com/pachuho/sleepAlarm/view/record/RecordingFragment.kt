@@ -1,12 +1,9 @@
-package com.pachuho.sleepAlarm.views.record
+package com.pachuho.sleepAlarm.view.record
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.pachuho.sleepAlarm.base.BaseFragment
-import kotlinx.coroutines.*
 import sleepAlarm.R
 import sleepAlarm.databinding.FragmentRecordingBinding
 

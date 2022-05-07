@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.pachuho.sleepAlarm.views.setting.SettingFragment"
+        android:name="com.pachuho.sleepAlarm.view.setting.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
 </navigation>

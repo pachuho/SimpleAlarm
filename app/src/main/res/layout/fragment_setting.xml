@@ -1,11 +1,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.pachuho.sleepAlarm.views.setting.SettingFragment">
+    tools:context="com.pachuho.sleepAlarm.view.setting.SettingFragment">
 
     <data>
         <variable
             name="vm"
-            type="com.pachuho.sleepAlarm.views.setting.SettingViewModel" />
+            type="com.pachuho.sleepAlarm.view.setting.SettingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

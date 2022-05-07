@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="vm"
-            type="com.pachuho.sleepAlarm.views.main.MainViewModel" />
+            type="com.pachuho.sleepAlarm.view.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

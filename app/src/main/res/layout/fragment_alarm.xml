@@ -1,12 +1,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.pachuho.sleepAlarm.views.alarm.AlarmFragment">
+    tools:context="com.pachuho.sleepAlarm.view.alarm.AlarmFragment">
 
     <data>
         <variable
             name="vm"
-            type="com.pachuho.sleepAlarm.views.alarm.AlarmViewModel" />
+            type="com.pachuho.sleepAlarm.view.alarm.AlarmViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,27 +26,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:visibility="gone"
-            android:id="@+id/fab_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/yellow"
-            app:layout_constraintBottom_toTopOf="@id/fab_1"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:visibility="gone"
-            android:id="@+id/fab_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/blue"
-            app:layout_constraintBottom_toTopOf="@id/fab_main"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:onClick="@{()->vm.changeFabVisibility()}"
+            android:onClick="@{()->vm.showToast(`테스트입니다`)}"
             android:id="@+id/fab_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
