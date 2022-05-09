@@ -38,7 +38,7 @@ android {
 }
 
 dependencies {
-    def nav_version = "2.4.2"
+    def base_version = "2.4.2"
     def lifecycle_version = "2.5.0-alpha06"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -54,11 +54,17 @@ dependencies {
     implementation "com.jakewharton.timber:timber:4.7.1"
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$base_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$base_version"
 
-    //
-
+    // Coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:$base_version"
+    kapt "androidx.room:room-compiler:$base_version"
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
