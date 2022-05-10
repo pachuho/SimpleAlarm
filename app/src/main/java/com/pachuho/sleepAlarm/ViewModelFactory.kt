@@ -2,7 +2,7 @@ package com.pachuho.sleepAlarm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.pachuho.sleepAlarm.data.AlarmRepository
+import com.pachuho.sleepAlarm.data.repository.AlarmRepository
 
 
 class ViewModelFactory(private val alarmRepository: AlarmRepository) : ViewModelProvider.Factory{

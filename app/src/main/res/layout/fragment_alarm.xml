@@ -26,7 +26,7 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:onClick="@{()->vm.showToast(`테스트입니다`)}"
+            android:onClick="@{()->vm.showSnackBar(`테스트입니다`)}"
             android:id="@+id/fab_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

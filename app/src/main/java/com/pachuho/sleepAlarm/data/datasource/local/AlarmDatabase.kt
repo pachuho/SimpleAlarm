@@ -1,8 +1,10 @@
-package com.pachuho.sleepAlarm.data
+package com.pachuho.sleepAlarm.data.datasource.local
 
 import android.content.Context
 import androidx.room.*
 import com.google.gson.Gson
+import com.pachuho.sleepAlarm.data.datasource.model.Alarm
+import com.pachuho.sleepAlarm.utils.DayTypeConverter
 
 @Database(entities = [Alarm::class], version = 1)
 @TypeConverters(

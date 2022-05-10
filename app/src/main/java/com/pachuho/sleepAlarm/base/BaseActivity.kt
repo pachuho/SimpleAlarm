@@ -1,7 +1,6 @@
 package com.pachuho.sleepAlarm.base
 
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil

@@ -1,4 +1,4 @@
-package com.pachuho.sleepAlarm.data
+package com.pachuho.sleepAlarm.data.datasource.model
 
 data class Day(
     val monday: Boolean,

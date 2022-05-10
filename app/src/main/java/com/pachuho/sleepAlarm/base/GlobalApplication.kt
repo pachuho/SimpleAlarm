@@ -3,8 +3,8 @@ package com.pachuho.sleepAlarm.base
 import android.app.Application
 import androidx.room.Room
 import com.google.gson.Gson
-import com.pachuho.sleepAlarm.data.AlarmDatabase
-import com.pachuho.sleepAlarm.data.DayTypeConverter
+import com.pachuho.sleepAlarm.data.datasource.local.AlarmDatabase
+import com.pachuho.sleepAlarm.utils.DayTypeConverter
 import sleepAlarm.BuildConfig
 import timber.log.Timber
 
@@ -14,6 +14,7 @@ class GlobalApplication: Application() {
             private set
 
         lateinit var appDataBaseInstance: AlarmDatabase
+            private set
 
     }
 

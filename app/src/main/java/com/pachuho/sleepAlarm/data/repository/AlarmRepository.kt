@@ -1,6 +1,8 @@
-package com.pachuho.sleepAlarm.data
+package com.pachuho.sleepAlarm.data.repository
 
 import com.pachuho.sleepAlarm.base.GlobalApplication
+import com.pachuho.sleepAlarm.data.datasource.model.Alarm
+import com.pachuho.sleepAlarm.data.datasource.model.Day
 
 class AlarmRepository {
     private val instance = GlobalApplication.appDataBaseInstance.alarmDao()

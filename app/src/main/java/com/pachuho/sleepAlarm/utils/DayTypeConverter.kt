@@ -1,10 +1,9 @@
-package com.pachuho.sleepAlarm.data
+package com.pachuho.sleepAlarm.utils
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import org.json.JSONObject
-import javax.xml.transform.Source
+import com.pachuho.sleepAlarm.data.datasource.model.Day
 
 @ProvidedTypeConverter
 class DayTypeConverter(private val gson: Gson) {

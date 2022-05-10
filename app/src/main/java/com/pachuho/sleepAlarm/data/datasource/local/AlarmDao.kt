@@ -1,6 +1,8 @@
-package com.pachuho.sleepAlarm.data
+package com.pachuho.sleepAlarm.data.datasource.local
 
 import androidx.room.*
+import com.pachuho.sleepAlarm.data.datasource.model.Alarm
+import com.pachuho.sleepAlarm.data.datasource.model.Day
 
 @Dao
 interface AlarmDao {

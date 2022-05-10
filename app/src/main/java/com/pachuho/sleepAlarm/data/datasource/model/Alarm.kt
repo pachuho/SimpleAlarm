@@ -1,4 +1,4 @@
-package com.pachuho.sleepAlarm.data
+package com.pachuho.sleepAlarm.data.datasource.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

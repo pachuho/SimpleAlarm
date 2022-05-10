@@ -5,10 +5,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.pachuho.sleepAlarm.ViewModelFactory
 import com.pachuho.sleepAlarm.base.BaseFragment
-import com.pachuho.sleepAlarm.data.Alarm
-import com.pachuho.sleepAlarm.data.AlarmDatabase
-import com.pachuho.sleepAlarm.data.AlarmRepository
-import com.pachuho.sleepAlarm.data.Day
+import com.pachuho.sleepAlarm.data.repository.AlarmRepository
 import com.pachuho.sleepAlarm.utils.repeatOnStarted
 import com.pachuho.sleepAlarm.utils.showSnackBar
 import com.pachuho.sleepAlarm.view.alarm.AlarmViewModel.Event
@@ -34,7 +31,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
     }
 
     private fun handleEvent(event: Event) = when (event) {
-        is Event.ShowToast -> view?.showSnackBar(event.text)
+        is Event.ShowSnackBar -> view?.showSnackBar(event.text)
     }
 
     override fun onDestroyView() {
