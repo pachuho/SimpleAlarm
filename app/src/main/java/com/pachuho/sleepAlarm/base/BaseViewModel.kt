@@ -1,6 +1,5 @@
 package com.pachuho.sleepAlarm.base
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pachuho.sleepAlarm.view.alarm.AlarmViewModel
@@ -16,7 +15,7 @@ abstract class BaseViewModel : ViewModel() {
         event(AlarmViewModel.Event.ShowSnackBar(msg))
     }
 
-    private fun event(event: AlarmViewModel.Event){
+    internal fun event(event: AlarmViewModel.Event){
         viewModelScope.launch {
             _eventFlow.emit(event)
         }
