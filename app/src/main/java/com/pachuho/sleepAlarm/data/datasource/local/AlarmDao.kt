@@ -19,7 +19,7 @@ interface AlarmDao {
     fun setUseAlarm(id: Long, use: Boolean)
 
     @Query("UPDATE Alarm " +
-            "SET use = :use, time = :time, repetition = :repetition, sound = :sound, vibration = :vibration " +
+            "SET use = :use, hour = :hour, minute = :minute, repetition = :repetition, sound = :sound, vibration = :vibration " +
             "WHERE id = :id")
-    fun updateAlarm(id: Long, use: Boolean, time: Int, repetition: Day, sound: Int, vibration: Boolean)
+    fun updateAlarm(id: Long, use: Boolean, hour: Int, minute: Int, repetition: Day, sound: Int, vibration: Boolean)
 }

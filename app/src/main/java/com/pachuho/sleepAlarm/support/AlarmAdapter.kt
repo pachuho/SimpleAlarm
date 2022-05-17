@@ -19,7 +19,7 @@ class AlarmAdapter : ListAdapter<Alarm, AlarmAdapter.AlarmItemViewHolder>(diffUt
 
     inner class AlarmItemViewHolder(private val binding: ItemAlarmBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(alarm: Alarm) = with(binding){
-            tvTime.text = alarm.time.toString()
+            tvTime.text = alarm.timeText
             tbUse.isChecked = alarm.use
         }
     }

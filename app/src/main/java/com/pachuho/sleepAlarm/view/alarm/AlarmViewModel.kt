@@ -18,6 +18,7 @@ class AlarmViewModel(
         CoroutineScope(Dispatchers.IO).launch {
             alarmRepository.insertAlarm(alarm).let {
                 alarm -> Timber.i("Insert Alarm, $alarm")
+
             }
         }
     }

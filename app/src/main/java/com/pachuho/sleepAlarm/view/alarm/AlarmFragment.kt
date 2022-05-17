@@ -30,7 +30,10 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
             viewModel.eventFlow.collect{ event -> handleEvent(event) }
         }
 
-//        viewModel.insertAlarm(Alarm(2, true, 1, Day(monday = true, tuesday = true, wednesday = true, thursday = true, friday = true, saturday = true, sunday = true), 1, true))
+//        viewModel.insertAlarm(Alarm(1, true, 12, 0, Day(monday = true, tuesday = true, wednesday = true, thursday = true, friday = true, saturday = true, sunday = true), 1, true))
+//        viewModel.insertAlarm(Alarm(2, true, 14, 0, Day(monday = true, tuesday = true, wednesday = true, thursday = true, friday = true, saturday = true, sunday = true), 1, true))
+//        viewModel.insertAlarm(Alarm(3, true, 17, 0, Day(monday = true, tuesday = true, wednesday = true, thursday = true, friday = true, saturday = true, sunday = true), 1, true))
+//        viewModel.insertAlarm(Alarm(4, true, 23, 0, Day(monday = true, tuesday = true, wednesday = true, thursday = true, friday = true, saturday = true, sunday = true), 1, true))
         viewModel.getAllAlarm()
     }
 
@@ -38,11 +41,9 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
         binding.rvAlarm.adapter = viewModel.adapter
         alarms.forEach { alarm ->
             Timber.i("alarm: $alarm")
-
         }
 
-        // todo fix error
-        viewModel.adapter.submitList(alarms.toMutableList())
+        viewModel.adapter.submitList(alarms)
 
         Timber.i("alarm:... ${viewModel.adapter.itemCount}")
     }

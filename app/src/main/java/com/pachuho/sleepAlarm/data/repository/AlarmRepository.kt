@@ -14,9 +14,10 @@ class AlarmRepository {
     suspend fun updateAlarm(
         id: Long,
         use: Boolean,
-        time: Int,
+        hour: Int,
+        minute: Int,
         repetition: Day,
         sound: Int,
         vibration: Boolean
-    ) = instance.updateAlarm(id, use, time, repetition, sound, vibration)
+    ) = instance.updateAlarm(id, use, hour, minute, repetition, sound, vibration)
 }
