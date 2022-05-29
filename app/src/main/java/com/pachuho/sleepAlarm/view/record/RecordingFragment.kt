@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import com.pachuho.sleepAlarm.base.BaseFragment
 import sleepAlarm.R
 import sleepAlarm.databinding.FragmentRecordingBinding
+import timber.log.Timber
 
 
 class RecordingFragment : BaseFragment<FragmentRecordingBinding, RecordingViewModel>(R.layout.fragment_recording) {
@@ -14,5 +15,10 @@ class RecordingFragment : BaseFragment<FragmentRecordingBinding, RecordingViewMo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
+    }
+
+    override fun onDestroyView() {
+        Timber.i("onDestroyView! RecordingFragment")
+        super.onDestroyView()
     }
 }

@@ -4,10 +4,13 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="blue">#6FB2D2</color>
-    <color name="light_blue">#E5F3FF</color>
+    <color name="dark_blue">#68AECF</color>
+    <color name="light_blue">#F1F8FF</color>
     <color name="base_color">#6FB2D2</color>
     <color name="floating_color">#9DD7F3</color>
     <color name="yellow">#EBD671</color>
     <color name="gray">#EAEAEA</color>
+    <color name="light_gray">#E6EFF8</color>
+    <color name="blue_gray">#C7D6E1</color>
 
 </resources>

@@ -14,12 +14,6 @@ class CreationAlarmFragment : BaseFragment<FragmentCreationAlarmBinding, Creatio
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel = viewModel
-
-        Timber.i("onViewCreated!, ${viewModel.isTest1.value}")
-
-        viewModel.isTest1.observe(viewLifecycleOwner) {
-            Timber.i("isTest, ${viewModel.isTest1.value}")
-        }
+        binding.vm = viewModel
     }
 }
