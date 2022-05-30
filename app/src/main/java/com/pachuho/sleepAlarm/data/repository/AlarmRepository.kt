@@ -10,6 +10,7 @@ class AlarmRepository {
     suspend fun insertAlarm(alarm: Alarm) = instance.insertAlarm(alarm)
     suspend fun deleteAlarm(alarm: Alarm) = instance.deleteAlarm(alarm)
     suspend fun getAllAlarm() = instance.getAll()
+    suspend fun getCurrentId() = instance.getCurrentId()
     suspend fun setUseAlarm(id: Long, use: Boolean) = instance.setUseAlarm(id, use)
     suspend fun updateAlarm(
         id: Long,

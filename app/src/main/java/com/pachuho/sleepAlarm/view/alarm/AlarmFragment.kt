@@ -8,6 +8,8 @@ import androidx.navigation.fragment.findNavController
 import com.pachuho.sleepAlarm.ViewModelFactory
 import com.pachuho.sleepAlarm.base.BaseFragment
 import com.pachuho.sleepAlarm.data.datasource.model.Alarm
+import com.pachuho.sleepAlarm.data.datasource.model.Day
+import com.pachuho.sleepAlarm.data.datasource.model.Time
 import com.pachuho.sleepAlarm.data.repository.AlarmRepository
 import com.pachuho.sleepAlarm.utils.showSnackBar
 import com.pachuho.sleepAlarm.view.alarm.AlarmViewModel.Event
@@ -18,7 +20,7 @@ import sleepAlarm.databinding.FragmentAlarmBinding
 import timber.log.Timber
 
 class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layout.fragment_alarm) {
-    override val viewModel: AlarmViewModel by viewModels { ViewModelFactory(AlarmRepository()) }
+    override val viewModel: AlarmViewModel by viewModels { ViewModelFactory(AlarmRepository())}
     private var alarmJob: Job? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

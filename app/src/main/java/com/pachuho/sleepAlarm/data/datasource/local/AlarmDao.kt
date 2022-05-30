@@ -9,6 +9,9 @@ interface AlarmDao {
     @Query("SELECT * FROM alarm")
     fun getAll(): List<Alarm>
 
+    @Query("SELECT MAX(id) FROM alarm")
+    fun getCurrentId(): Long
+
     @Insert
     fun insertAlarm(alarm: Alarm)
 
