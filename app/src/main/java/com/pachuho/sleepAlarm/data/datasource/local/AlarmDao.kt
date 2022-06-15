@@ -2,7 +2,7 @@ package com.pachuho.sleepAlarm.data.datasource.local
 
 import androidx.room.*
 import com.pachuho.sleepAlarm.data.datasource.model.Alarm
-import com.pachuho.sleepAlarm.data.datasource.model.Day
+import com.pachuho.sleepAlarm.data.datasource.model.DayOfWeek
 
 @Dao
 interface AlarmDao {
@@ -12,7 +12,7 @@ interface AlarmDao {
     @Query("SELECT MAX(id) FROM alarm")
     fun getCurrentId(): Long
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAlarm(alarm: Alarm)
 
     @Delete
@@ -24,5 +24,5 @@ interface AlarmDao {
     @Query("UPDATE Alarm " +
             "SET use = :use, hour = :hour, minute = :minute, repetition = :repetition, sound = :sound, vibration = :vibration " +
             "WHERE id = :id")
-    fun updateAlarm(id: Long, use: Boolean, hour: Int, minute: Int, repetition: Day, sound: Int, vibration: Boolean)
+    fun updateAlarm(id: Long, use: Boolean, hour: Int, minute: Int, repetition: DayOfWeek, sound: Int, vibration: Boolean)
 }

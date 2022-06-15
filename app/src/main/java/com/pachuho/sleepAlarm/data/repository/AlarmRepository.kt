@@ -2,7 +2,7 @@ package com.pachuho.sleepAlarm.data.repository
 
 import com.pachuho.sleepAlarm.base.GlobalApplication
 import com.pachuho.sleepAlarm.data.datasource.model.Alarm
-import com.pachuho.sleepAlarm.data.datasource.model.Day
+import com.pachuho.sleepAlarm.data.datasource.model.DayOfWeek
 
 class AlarmRepository {
     private val instance = GlobalApplication.appDataBaseInstance.alarmDao()
@@ -17,7 +17,7 @@ class AlarmRepository {
         use: Boolean,
         hour: Int,
         minute: Int,
-        repetition: Day,
+        repetition: DayOfWeek,
         sound: Int,
         vibration: Boolean
     ) = instance.updateAlarm(id, use, hour, minute, repetition, sound, vibration)

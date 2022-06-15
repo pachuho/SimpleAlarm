@@ -21,18 +21,9 @@ class AlarmViewModel(
 
     val adapter by lazy { AlarmAdapter() }
 
-    fun insertAlarm(alarm: Alarm){
-        CoroutineScope(Dispatchers.IO).launch {
-            alarmRepository.insertAlarm(alarm).let {
-                alarm -> Timber.i("Insert Alarm, $alarm")
-            }
-        }
-    }
-
     fun moveFragment(fragName: String){
         event(Event.MoveFragment(fragName))
     }
-
 
     fun getAllAlarm(){
         CoroutineScope(Dispatchers.IO).launch {

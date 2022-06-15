@@ -6,11 +6,12 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Alarm(
-    @PrimaryKey val id: Long,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     @ColumnInfo val use: Boolean,
     @ColumnInfo val hour: Int,
     @ColumnInfo val minute: Int,
-    @ColumnInfo val repetition: Day,
+    @ColumnInfo val repetition: DayOfWeek,
     @ColumnInfo val sound: Int,
     @ColumnInfo val vibration: Boolean
 ){

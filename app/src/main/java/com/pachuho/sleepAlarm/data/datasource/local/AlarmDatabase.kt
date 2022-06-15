@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import com.pachuho.sleepAlarm.data.datasource.model.Alarm
 import com.pachuho.sleepAlarm.utils.DayTypeConverter
 
-@Database(entities = [Alarm::class], version = 1)
+@Database(entities = [Alarm::class], version = 2)
 @TypeConverters(
     value = [
         DayTypeConverter::class

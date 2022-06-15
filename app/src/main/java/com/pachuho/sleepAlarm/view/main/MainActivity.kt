@@ -33,6 +33,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.bottomNavigation.setupWithNavController(navController)
     }
 
+
+
     override fun onBackPressed() {
         super.onBackPressed()
         Timber.i("onBackPressed!")

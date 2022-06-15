@@ -12,12 +12,15 @@
         tools:layout="@layout/fragment_alarm">
         <action
             android:id="@+id/action_alarmFragment_to_creationAlarmFragment"
-            app:destination="@id/creationAlarmFragment" />
+            app:destination="@id/creationAlarmFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
     <fragment
         android:id="@+id/creationAlarmFragment"
         android:name="com.pachuho.sleepAlarm.view.creation.CreationAlarmFragment"
-        tools:layout="@layout/fragment_creation_alarm">
-    </fragment>
+        tools:layout="@layout/fragment_creation_alarm"/>
 </navigation>

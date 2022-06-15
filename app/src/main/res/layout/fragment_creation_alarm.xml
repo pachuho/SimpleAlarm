@@ -20,13 +20,14 @@
             android:layout_height="match_parent"
             android:layout_margin="15dp">
 
-            <ImageView
-                android:id="@+id/iv_back_press"
+            <ImageButton
+                android:id="@+id/ib_back_press"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_arrow_back"
                 android:padding="10dp"
-                android:layout_margin="5dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_marginTop="20dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
@@ -40,7 +41,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_back_press"
+                app:layout_constraintTop_toBottomOf="@id/ib_back_press"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -162,9 +163,9 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/creation_count_time_1"
                 android:textStyle="bold"
                 android:textAlignment="center"
+                android:text="@{vm.timeFromNow}"
                 android:layout_marginVertical="15dp"
                 android:paddingVertical="5dp"
                 android:background="@drawable/border_creation_text"
@@ -173,7 +174,6 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <Button
-                android:onClick="@{()->vm.creationAlarm()}"
                 android:id="@+id/btn_creation_save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
