@@ -24,14 +24,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.apply {
             vm = viewModel
         }
-        setUpBottomNavigationBar()
+//        setUpBottomNavigationBar()
     }
 
-    private fun setUpBottomNavigationBar() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
-        navController = navHostFragment.navController
-        binding.bottomNavigation.setupWithNavController(navController)
-    }
+//    private fun setUpBottomNavigationBar() {
+//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+//        navController = navHostFragment.navController
+//        binding.bottomNavigation.setupWithNavController(navController)
+//    }
 
 
 
