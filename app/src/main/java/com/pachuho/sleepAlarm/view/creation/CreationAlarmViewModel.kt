@@ -119,8 +119,8 @@ class CreationAlarmViewModel(
     // 요일, 시간, 분 계산
     @SuppressLint("BinaryOperationInTimber")
     private fun calculateTime(){
-        Timber.e("calculateTime, currentDay: $currentDayOfWeek, targetDay: $targetDayOfWeek, " +
-                "currentTime: $currentTime, targetTime: $targetTime")
+//        Timber.e("calculateTime, currentDay: $currentDayOfWeek, targetDay: $targetDayOfWeek, " +
+//                "currentTime: $currentTime, targetTime: $targetTime")
 
         val targetDays = ArrayList<Boolean>().apply {
             targetDayOfWeek.apply {
@@ -134,15 +134,22 @@ class CreationAlarmViewModel(
             }
         }
 
-        //todo
-        for(i in 0 until targetDays.size){
-            if(targetDays[currentDayOfWeek.day + i]){
+        var diffDay = 0
+        var none = true
 
+        for(i in 0..6){
+            var index = currentDayOfWeek.day + i
+            if(index >= targetDays.size){
+                index -= 7
+            }
+            if(targetDays[index]){
+                diffDay = i
+                none = false
                 break
             }
         }
 
-
+//        Timber.e("diffDay: $diffDay, none: $none")
 
         val diffHour = targetTime.hour - currentTime.hour
         val diffMinute = targetTime.minute - currentTime.minute
@@ -154,11 +161,17 @@ class CreationAlarmViewModel(
         val commentEnd = "뒤 알람이 울립니다."
 
         val commentList = ArrayList<String>().apply {
+            add(commentStart)
 
-
-
-
-//            add(commentStart)
+            // 일
+            if(diffDay > 0){
+                add(diffDay.toString())
+                add(commentDay)
+            } else if(diffDay == 0 && none){
+                this.clear()
+                add("설정한 요일이 존재하지 않아 알람이 울리지 않습니다.")
+                return@apply
+            }
 //
 //            if(diffHour > 0) {
 //                add(diffHour.toString())
@@ -168,7 +181,7 @@ class CreationAlarmViewModel(
 //                add(diffMinute.toString())
 //                add(commentMinute)
 //            }
-//            add(commentEnd)
+            add(commentEnd)
         }
 
         timeFromNow.value = commentList.joinToString("")
