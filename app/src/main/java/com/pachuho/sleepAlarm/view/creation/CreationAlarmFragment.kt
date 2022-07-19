@@ -39,6 +39,22 @@ class CreationAlarmFragment : BaseFragment<FragmentCreationAlarmBinding, Creatio
 
     private fun handleEvent(event: CreationAlarmViewModel.Event) = when (event) {
         is CreationAlarmViewModel.Event.UpdateAlarm -> completeCreationAlarm(event.alarm)
+        is CreationAlarmViewModel.Event.CheckDayOfWeek -> modifyDayOfWeek(event.view)
+    }
+
+    private fun modifyDayOfWeek(view: View) = with(binding){
+        viewModel.targetDayOfWeek.apply {
+            when(view.id){
+                ctvDayMon.id -> monday = !monday
+                ctvDayTue.id -> tuesday = !tuesday
+                ctvDayWen.id -> wednesday = !wednesday
+                ctvDayThu.id -> thursday = !thursday
+                ctvDayFri.id -> friday = !friday
+                ctvDaySat.id -> saturday = !saturday
+                ctvDaySun.id -> sunday = !sunday
+            }
+        }
+        viewModel.setDayOfWeek()
     }
 
     private fun completeCreationAlarm(alarm: Alarm){
