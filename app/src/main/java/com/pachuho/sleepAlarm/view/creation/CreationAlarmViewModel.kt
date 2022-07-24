@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.lang.StrictMath.abs
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -33,8 +34,8 @@ class CreationAlarmViewModel(
     // TimePicker 시간
     private var targetTime = addMinute(currentTime)
         set(value) {
-            calculateTime()
             field = value
+            calculateTime()
         }
 
     // 현재 요일
@@ -151,8 +152,18 @@ class CreationAlarmViewModel(
 
 //        Timber.e("diffDay: $diffDay, none: $none")
 
-        val diffHour = targetTime.hour - currentTime.hour
-        val diffMinute = targetTime.minute - currentTime.minute
+        Timber.e("currentTime: ${currentTime}, targetTime: ${targetTime}")
+
+        val diffHour = if(targetTime.hour >= currentTime.hour){
+            targetTime.hour - currentTime.hour
+        } else {
+            24 - (currentTime.hour - targetTime.hour)
+        }
+        val diffMinute = if(targetTime.minute >= currentTime.minute){
+            targetTime.minute - currentTime.minute
+        } else {
+            60 - (currentTime.minute - targetTime.minute)
+        }
 
         val commentStart = "지금부터 "
         val commentDay = "일 "
@@ -172,17 +183,27 @@ class CreationAlarmViewModel(
                 add("설정한 요일이 존재하지 않아 알람이 울리지 않습니다.")
                 return@apply
             }
-//
-//            if(diffHour > 0) {
-//                add(diffHour.toString())
-//                add(commentHour)
-//            }
-//            if(diffMinute > 0) {
-//                add(diffMinute.toString())
-//                add(commentMinute)
-//            }
+
+            // 시간
+            if(diffHour > 0) {
+                add(diffHour.toString())
+                add(commentHour)
+            }
+
+            // 분
+            if(diffMinute > 0) {
+                add(diffMinute.toString())
+                add(commentMinute)
+            }
+
+            // 요일을 체크했으며 동일 시간인 경우
+            if(diffDay == 0 && diffHour == 0 && diffMinute == 0){
+                add("7일 ")
+            }
+
             add(commentEnd)
         }
+
 
         timeFromNow.value = commentList.joinToString("")
     }
