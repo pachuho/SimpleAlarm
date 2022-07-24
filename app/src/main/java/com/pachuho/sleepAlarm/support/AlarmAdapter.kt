@@ -3,13 +3,15 @@ package com.pachuho.sleepAlarm.support
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.pachuho.sleepAlarm.data.datasource.model.Alarm
 import sleepAlarm.databinding.ItemAlarmBinding
 
-class AlarmAdapter : ListAdapter<Alarm, AlarmAdapter.AlarmItemViewHolder>(diffUtil) {
+abstract class AlarmAdapter : ListAdapter<Alarm, AlarmAdapter.AlarmItemViewHolder>(diffUtil) {
+    abstract fun checkUsing(id: Int, use: Boolean)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmItemViewHolder {
         return AlarmItemViewHolder(ItemAlarmBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -22,6 +24,8 @@ class AlarmAdapter : ListAdapter<Alarm, AlarmAdapter.AlarmItemViewHolder>(diffUt
         fun bind(alarm: Alarm) = with(binding){
             tvTime.text = alarm.timeText
             tbUse.isChecked = alarm.use
+
+            tbUse.setOnCheckedChangeListener { _, isChecked -> checkUsing(alarm.id, isChecked)}
         }
     }
 

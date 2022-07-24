@@ -25,4 +25,7 @@ interface AlarmDao {
             "SET use = :use, hour = :hour, minute = :minute, repetition = :repetition, sound = :sound, vibration = :vibration " +
             "WHERE id = :id")
     fun updateAlarm(id: Long, use: Boolean, hour: Int, minute: Int, repetition: DayOfWeek, sound: Int, vibration: Boolean)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun updateAlarm(alarm: Alarm)
 }

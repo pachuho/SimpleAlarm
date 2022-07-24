@@ -9,8 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.pachuho.sleepAlarm.ViewModelFactory
 import com.pachuho.sleepAlarm.base.BaseFragment
 import com.pachuho.sleepAlarm.data.datasource.model.Alarm
+import com.pachuho.sleepAlarm.data.datasource.model.Time
 import com.pachuho.sleepAlarm.data.repository.AlarmRepository
-import com.pachuho.sleepAlarm.utils.showSnackBar
+import com.pachuho.sleepAlarm.utils.*
 import com.pachuho.sleepAlarm.view.alarm.AlarmViewModel.Event
 import com.pachuho.sleepAlarm.view.main.MainViewModel
 import kotlinx.coroutines.Job
@@ -21,7 +22,6 @@ import timber.log.Timber
 
 class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layout.fragment_alarm) {
     override val viewModel: AlarmViewModel by viewModels { ViewModelFactory(AlarmRepository())}
-    private val sharedViewModel: MainViewModel by activityViewModels () // 액티비티 뷰모델
     private var alarmJob: Job? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,7 +34,42 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
     }
 
     private fun setAlarm(alarms: List<Alarm>){
-        viewModel.adapter.submitList(alarms)
+        viewModel.alarms = alarms as ArrayList<Alarm>
+
+        val currentDayOfWeek = getCurrentDayWeek()
+        val currentTime: Time = setCurrentTime()
+        var use = false
+
+        var minDay = 0
+        var minHour = 0
+        var minMinute = 0
+        var minNone = 1
+        var sum = 0
+
+        alarms.forEach {
+            if(it.use){
+                val (day, hour, minute, none) = calculateTime(currentDayOfWeek, it.repetition, currentTime, Time(it.hour, it.minute))
+                val h = "%02d".format(if (hour < 12) hour else hour - 12)
+                val m = "%02d".format(minute)
+                val tempSum = day + h.toInt() + m.toInt()
+
+                if(sum == 0 || sum > tempSum){
+                    sum = tempSum
+                    minDay = day
+                    minHour = hour
+                    minMinute = minute
+                    minNone = none
+                }
+
+                use = true
+            }
+        }
+        if(!use){
+            viewModel.timeFromNow.value = "예정된 알람이 없습니다."
+            return
+        }
+
+        viewModel.timeFromNow.value = getDiffComment(minDay, minHour, minMinute, minNone)
     }
 
     private fun navigate(fragName: String) = with(findNavController()){

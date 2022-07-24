@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 data class Alarm(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    @ColumnInfo val use: Boolean,
+    @ColumnInfo var use: Boolean,
     @ColumnInfo val hour: Int,
     @ColumnInfo val minute: Int,
     @ColumnInfo val repetition: DayOfWeek,
