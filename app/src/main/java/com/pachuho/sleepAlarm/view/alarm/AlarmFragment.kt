@@ -1,10 +1,17 @@
 package com.pachuho.sleepAlarm.view.alarm
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import com.pachuho.sleepAlarm.ViewModelFactory
 import com.pachuho.sleepAlarm.base.BaseFragment
@@ -24,17 +31,26 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
     override val viewModel: AlarmViewModel by viewModels { ViewModelFactory(AlarmRepository())}
     private var alarmJob: Job? = null
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.vm = viewModel
         binding.rvAlarm.adapter = viewModel.adapter
 
+
         viewModel.getAllAlarm()
     }
 
-    private fun setAlarm(alarms: List<Alarm>){
-        viewModel.alarms = alarms as ArrayList<Alarm>
+    private fun setAlarm(alarms: ArrayList<Alarm>){
+        viewModel.alarms = viewModel.setOrderAlarms(alarms)
 
         val currentDayOfWeek = getCurrentDayWeek()
         val currentTime: Time = setCurrentTime()
@@ -80,7 +96,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
 
     private fun handleEvent(event: Event) = when (event) {
         is Event.ShowSnackBar -> view?.showSnackBar(event.text)
-        is Event.GetAlarms -> setAlarm(event.alarms)
+        is Event.GetAlarms -> setAlarm(event.alarms as ArrayList<Alarm>)
         is Event.MoveFragment -> navigate(event.fragName)
     }
 

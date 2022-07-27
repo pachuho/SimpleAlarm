@@ -5,17 +5,27 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import sleepAlarm.R
 import timber.log.Timber
 
-class AlarmReceiver : BroadcastReceiver() {
+class AlarmReceiver: BroadcastReceiver() {
+    interface GoOffListener {
+        fun onGoOffCallback()
+    }
+
+    fun registerCallback(goOffListener: GoOffListener) {
+        this.goOffListener = goOffListener
+    }
+
+    lateinit var goOffListener: GoOffListener
 
     companion object {
         const val NOTIFICATION_CHANNEL_ID = "1001"
         const val NOTIFICATION_ID = 101
+
     }
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -24,6 +34,8 @@ class AlarmReceiver : BroadcastReceiver() {
         createNotificationChannel(context)
         // 알림
         notifyNotification(context)
+
+        LocalBroadcastManager.getInstance(context).sendBroadcast(Intent("goOff"))
     }
 
     private fun createNotificationChannel(context: Context) {

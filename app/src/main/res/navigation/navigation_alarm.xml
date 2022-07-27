@@ -17,10 +17,18 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_alarmFragment_to_goOffFragment"
+            app:destination="@id/goOffFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/creationAlarmFragment"
         android:name="com.pachuho.sleepAlarm.view.creation.CreationAlarmFragment"
         tools:layout="@layout/fragment_creation_alarm"/>
+    <fragment
+        android:id="@+id/goOffFragment"
+        android:name="com.pachuho.sleepAlarm.view.gooff.GoOffFragment"
+        android:label="fragment_go_off"
+        tools:layout="@layout/fragment_go_off" />
 </navigation>

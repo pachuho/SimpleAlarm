@@ -9,9 +9,7 @@ import com.pachuho.sleepAlarm.view.creation.CreationAlarmViewModel
 
 
 class ViewModelFactory(private val alarmRepository: AlarmRepository) : ViewModelProvider.Factory{
-    override fun <T : ViewModel?> create(
-        modelClass: Class<T>
-    ) = with(modelClass) {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T = with(modelClass) {
         when{
             isAssignableFrom(AlarmViewModel::class.java) ->
                 modelClass.getConstructor(AlarmRepository::class.java).newInstance(alarmRepository)

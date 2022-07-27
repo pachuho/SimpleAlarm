@@ -41,6 +41,17 @@ class AlarmViewModel(
 
     var timeFromNow = MutableStateFlow("지금부터 " + 1 +"분 뒤 알람이 울립니다.")
 
+    //todo
+    fun setOrderAlarms(alarms: ArrayList<Alarm>): ArrayList<Alarm>{
+        val list: List<Alarm> = alarms
+        list.sortedWith(compareBy({it.use}, {it.hour}, {it.minute}))
+
+        val sortedAlarms = ArrayList<Alarm>()
+        sortedAlarms.addAll(list)
+
+        return sortedAlarms
+    }
+
     fun moveFragment(fragName: String){
         event(Event.MoveFragment(fragName))
     }

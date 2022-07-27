@@ -11,9 +11,9 @@ import com.pachuho.sleepAlarm.data.datasource.model.Time
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 fun LifecycleOwner.repeatOnStarted(block: suspend CoroutineScope.() -> Unit) {
     lifecycleScope.launch {
@@ -42,6 +42,26 @@ fun getCurrentDayWeek(): Day{
     return result
 }
 
+fun getCurrentDayWeekString(): String{
+    val date = Date(System.currentTimeMillis())
+    val cal = Calendar.getInstance()
+    cal.time = date
+
+    val result = when(cal.get(Calendar.DAY_OF_WEEK)){
+        1 -> "일요일"
+        2 -> "월요일"
+        3 -> "화요일"
+        4 -> "수요일"
+        5 -> "목요일"
+        6 -> "금요일"
+        7 -> "토요일"
+        else -> {
+            "일요일"
+        }
+    }
+    return result
+}
+
 // 현재 시간 가져오기
 @SuppressLint("SimpleDateFormat")
 fun setCurrentTime(): Time {
@@ -51,6 +71,24 @@ fun setCurrentTime(): Time {
     val hour = "%02d".format(if (currentTime[0] < 12) currentTime[0] else currentTime[0] - 12).toInt()
 
     return Time(hour, currentTime[1])
+}
+
+@SuppressLint("SimpleDateFormat")
+fun getCurrentTime(): String {
+    val date = Date(System.currentTimeMillis())
+    val currentTime = SimpleDateFormat("hh:mm").format(date).split(":").map { it.toInt() }
+
+    var half = "오전"
+    if(currentTime[0] > 12) half = "오후"
+    val hour = "%02d".format(if (currentTime[0] < 12) currentTime[0] else currentTime[0] - 12)
+    return "$half $hour:${currentTime[1]}"
+}
+
+// 날짜
+fun getCurrentDate(): String {
+    val dateNow = Calendar.getInstance().time
+    val format = SimpleDateFormat("M월 dd일", Locale.getDefault())
+    return format.format(dateNow)
 }
 
 // 현재 시간과 차이 계산

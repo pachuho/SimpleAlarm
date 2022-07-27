@@ -2,19 +2,21 @@ package com.pachuho.sleepAlarm.base
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Build
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.LayoutRes
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.navigation.fragment.R
+import androidx.navigation.fragment.findNavController
 import com.pachuho.sleepAlarm.data.datasource.model.Alarm
 import com.pachuho.sleepAlarm.support.AlarmReceiver
 import timber.log.Timber
@@ -25,6 +27,8 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes 
     val binding get() = _binding!!
 
     protected abstract val viewModel: VM
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
