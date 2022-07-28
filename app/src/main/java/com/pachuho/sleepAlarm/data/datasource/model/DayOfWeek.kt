@@ -1,5 +1,6 @@
 package com.pachuho.sleepAlarm.data.datasource.model
 
+
 data class DayOfWeek(
     var monday: Boolean = true,
     var tuesday: Boolean = true,

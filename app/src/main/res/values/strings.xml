@@ -9,4 +9,6 @@
     <string name="time_hour">시간 </string>
     <string name="time_minute">분 </string>
     <string name="time_end">이내로 알람이 울립니다.</string>
+    <string name="menu_remove">삭제</string>
+    <string name="comment_remove_alarm">알람이 삭제되었습니다.</string>
 </resources>

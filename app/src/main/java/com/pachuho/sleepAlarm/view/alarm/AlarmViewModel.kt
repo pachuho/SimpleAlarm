@@ -28,7 +28,7 @@ class AlarmViewModel(
     }
 
     val adapter by lazy { object: AlarmAdapter(){
-        override fun checkUsing(id: Int, use: Boolean) {
+        override fun onCheckUsing(id: Int, use: Boolean) {
             alarms.forEach {
                 if (it.id == id){
                     it.use = use
@@ -36,6 +36,14 @@ class AlarmViewModel(
                     return@forEach
                 }
             }
+        }
+
+        override fun onDeleteAlarm(alarm: Alarm) {
+            checkUsingAlarm(alarm)
+        }
+
+        override fun onUpdateAlarm(alarm: Alarm) {
+
         }
     }}
 
@@ -70,6 +78,27 @@ class AlarmViewModel(
         }
     }
 
+    fun checkUsingAlarm(alarm: Alarm){
+        CoroutineScope(Dispatchers.IO).launch {
+            if(alarm.use){
+                alarm.use = false
+                alarmRepository.updateAlarm(alarm).run {
+                    deleteAlarm(alarm)
+                }
+            } else{
+                deleteAlarm(alarm)
+            }
+        }
+    }
+
+    private fun deleteAlarm(alarm: Alarm){
+        CoroutineScope(Dispatchers.IO).launch {
+                alarmRepository.deleteAlarm(alarm).run {
+                event(Event.DeleteAlarms(alarm))
+            }
+        }
+    }
+
     private fun event(event: Event){
         viewModelScope.launch {
             _eventFlow.emit(event)
@@ -79,6 +108,8 @@ class AlarmViewModel(
     sealed class Event{
         data class ShowSnackBar(val text: String) : Event()
         data class GetAlarms(val alarms: List<Alarm>) : Event()
+        data class DeleteAlarms(val alarm: Alarm) : Event()
+        data class UpdateAlarms(val alarm: Alarm) : Event()
         data class MoveFragment(val fragName: String) : Event()
     }
 

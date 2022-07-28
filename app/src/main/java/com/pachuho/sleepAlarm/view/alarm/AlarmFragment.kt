@@ -31,14 +31,6 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
     override val viewModel: AlarmViewModel by viewModels { ViewModelFactory(AlarmRepository())}
     private var alarmJob: Job? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -64,7 +56,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
 
         alarms.forEach {
             if(it.use){
-                val (day, hour, minute, none) = calculateTime(currentDayOfWeek, it.repetition, currentTime, Time(it.hour, it.minute))
+                val (day, hour, minute, none) = calculateTime(currentDayOfWeek, it.repetition!!, currentTime, Time(it.hour, it.minute))
                 val h = "%02d".format(if (hour < 12) hour else hour - 12)
                 val m = "%02d".format(minute)
                 val tempSum = day + h.toInt() + m.toInt()
@@ -94,9 +86,20 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
         }
     }
 
+    private fun updateAlarm(alarm: Alarm) = with(findNavController()){
+//        val action =
+    }
+
+    private fun completeDeletingAlarm(){
+        view?.showSnackBar(getString(R.string.comment_remove_alarm))
+        setAlarm(viewModel.alarms)
+    }
+
     private fun handleEvent(event: Event) = when (event) {
         is Event.ShowSnackBar -> view?.showSnackBar(event.text)
         is Event.GetAlarms -> setAlarm(event.alarms as ArrayList<Alarm>)
+        is Event.DeleteAlarms -> completeDeletingAlarm()
+        is Event.UpdateAlarms -> updateAlarm(event.alarm)
         is Event.MoveFragment -> navigate(event.fragName)
     }
 

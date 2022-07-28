@@ -19,7 +19,9 @@
             app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_alarmFragment_to_goOffFragment"
-            app:destination="@id/goOffFragment" />
+            app:destination="@id/goOffFragment"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 
     <fragment
