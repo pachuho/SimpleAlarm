@@ -17,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -40,7 +41,7 @@ class CreationAlarmViewModel(
     private val currentDayOfWeek = getCurrentDayWeek()
 
     // 적용된 요일
-    var targetDayOfWeek = DayOfWeek()
+    val targetDayOfWeek = MutableStateFlow(DayOfWeek())
 
     var timeFromNow = MutableStateFlow("지금부터 " + 1 +"분 뒤 알람이 울립니다.")
 
@@ -65,11 +66,13 @@ class CreationAlarmViewModel(
         return Time(hour, minute)
     }
 
+    // 선택한 요일 체크 상태 수정
     fun setToggle(view: View){
         (view as CheckedTextView).isChecked = !view.isChecked
         event(Event.CheckDayOfWeek(view))
     }
 
+    // 알람 생성
     fun createAlarm(alarm: Alarm){
         CoroutineScope(Dispatchers.IO).launch {
             alarmRepository.insertAlarm(alarm).run {
@@ -78,6 +81,7 @@ class CreationAlarmViewModel(
         }
     }
 
+    // 알람 수정
     fun updateAlarm(alarm: Alarm){
         CoroutineScope(Dispatchers.IO).launch {
             alarmRepository.updateAlarm(alarm).run {
@@ -87,7 +91,7 @@ class CreationAlarmViewModel(
     }
 
     fun setDayOfWeek(){
-        val (day, hour, minute, none) = calculateTime(currentDayOfWeek, targetDayOfWeek, currentTime, targetTime)
+        val (day, hour, minute, none) = calculateTime(currentDayOfWeek, targetDayOfWeek.value, currentTime, targetTime)
         timeFromNow.value = getDiffComment(day, hour, minute, none)
     }
 
@@ -96,6 +100,7 @@ class CreationAlarmViewModel(
             _eventFlow.emit(event)
         }
     }
+
 
     sealed class Event{
         data class UpdateAlarm(val alarm: Alarm) : Event()

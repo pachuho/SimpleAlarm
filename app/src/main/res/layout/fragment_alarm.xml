@@ -58,7 +58,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:onClick="@{()->vm.moveFragment(`creation`)}"
+            android:onClick="@{()->vm.moveFragment()}"
             android:id="@+id/fab_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

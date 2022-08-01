@@ -66,9 +66,10 @@ fun getCurrentDayWeekString(): String{
 @SuppressLint("SimpleDateFormat")
 fun setCurrentTime(): Time {
     val date = Date(System.currentTimeMillis())
-    val currentTime = SimpleDateFormat("hh:mm").format(date).split(":").map { it.toInt() }
+    val currentTime = SimpleDateFormat("HH:mm").format(date).split(":").map { it.toInt() }
 
-    val hour = "%02d".format(if (currentTime[0] < 12) currentTime[0] else currentTime[0] - 12).toInt()
+//    val hour = "%02d".format(if (currentTime[0] < 12) currentTime[0] else currentTime[0] - 12).toInt()
+    val hour = "%02d".format(currentTime[0]).toInt()
 
     return Time(hour, currentTime[1])
 }
@@ -94,8 +95,7 @@ fun getCurrentDate(): String {
 // 현재 시간과 차이 계산
 @SuppressLint("BinaryOperationInTimber")
 fun calculateTime(currentDayOfWeek: Day, targetDayOfWeek: DayOfWeek, currentTime: Time, targetTime: Time): List<Int>{
-    Timber.e("calculateTime, currentDay: $currentDayOfWeek, targetDay: $targetDayOfWeek, " +
-            "currentTime: $currentTime, targetTime: $targetTime")
+//    Timber.e("calculateTime, currentDay: $currentDayOfWeek, targetDay: $targetDayOfWeek, " + "currentTime: $currentTime, targetTime: $targetTime")
 
     val targetDays = ArrayList<Boolean>().apply {
         targetDayOfWeek.apply {
@@ -126,7 +126,7 @@ fun calculateTime(currentDayOfWeek: Day, targetDayOfWeek: DayOfWeek, currentTime
 
 //        Timber.e("diffDay: $diffDay, none: $none")
 
-//        Timber.e("currentTime: ${currentTime}, targetTime: ${targetTime}")
+        Timber.e("currentTime: $currentTime, targetTime: $targetTime")
 
     val diffHour = if(targetTime.hour >= currentTime.hour){
         targetTime.hour - currentTime.hour

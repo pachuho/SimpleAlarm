@@ -6,7 +6,6 @@ import com.pachuho.sleepAlarm.data.datasource.model.Alarm
 import com.pachuho.sleepAlarm.data.repository.AlarmRepository
 import com.pachuho.sleepAlarm.support.AlarmAdapter
 import com.pachuho.sleepAlarm.view.alarm.AlarmViewModel.*
-import com.pachuho.sleepAlarm.view.creation.CreationAlarmViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -43,7 +42,7 @@ class AlarmViewModel(
         }
 
         override fun onUpdateAlarm(alarm: Alarm) {
-
+            event(Event.MoveCreationFragment(alarm))
         }
     }}
 
@@ -60,8 +59,8 @@ class AlarmViewModel(
         return sortedAlarms
     }
 
-    fun moveFragment(fragName: String){
-        event(Event.MoveFragment(fragName))
+    fun moveFragment(){
+        event(Event.MoveCreationFragment(null))
     }
 
     fun getAllAlarm(){
@@ -94,7 +93,8 @@ class AlarmViewModel(
     private fun deleteAlarm(alarm: Alarm){
         CoroutineScope(Dispatchers.IO).launch {
                 alarmRepository.deleteAlarm(alarm).run {
-                event(Event.DeleteAlarms(alarm))
+//                event(Event.DeleteAlarms(alarm))
+                    Event.ShowSnackBar("알람이 삭제되었습니다.")
             }
         }
     }
@@ -108,9 +108,7 @@ class AlarmViewModel(
     sealed class Event{
         data class ShowSnackBar(val text: String) : Event()
         data class GetAlarms(val alarms: List<Alarm>) : Event()
-        data class DeleteAlarms(val alarm: Alarm) : Event()
-        data class UpdateAlarms(val alarm: Alarm) : Event()
-        data class MoveFragment(val fragName: String) : Event()
+        data class MoveCreationFragment(val alarm: Alarm?) : Event()
     }
 
     override fun onCleared() {

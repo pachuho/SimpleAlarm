@@ -3,15 +3,18 @@ package com.pachuho.sleepAlarm.view.creation
 import android.os.Bundle
 import android.view.View
 import android.widget.CheckedTextView
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.pachuho.sleepAlarm.ViewModelFactory
 import com.pachuho.sleepAlarm.base.BaseFragment
 import com.pachuho.sleepAlarm.data.datasource.model.Alarm
 import com.pachuho.sleepAlarm.data.datasource.model.DayOfWeek
 import com.pachuho.sleepAlarm.data.repository.AlarmRepository
+import com.pachuho.sleepAlarm.utils.repeatOnStarted
 import com.pachuho.sleepAlarm.utils.showSnackBar
 import com.pachuho.sleepAlarm.view.main.MainViewModel
 import kotlinx.coroutines.Job
@@ -24,12 +27,46 @@ import kotlin.collections.ArrayList
 class CreationAlarmFragment : BaseFragment<FragmentCreationAlarmBinding, CreationAlarmViewModel>(R.layout.fragment_creation_alarm) {
     override val viewModel: CreationAlarmViewModel by viewModels { ViewModelFactory(AlarmRepository()) } // 프래그먼트 뷰모델
     private var alarmJob: Job? = null
+    private val args: CreationAlarmFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
-        binding.tpAlarm.minute += 1
+
+        setAlarm(args.alarm)
         setButtonClickEvent()
+        collectFlow()
+    }
+
+    private fun collectFlow() {
+        repeatOnStarted {
+            viewModel.targetDayOfWeek.collect{
+                binding.apply {
+                    ctvDaySun.isChecked = it.sunday
+                    ctvDayMon.isChecked = it.monday
+                    ctvDayTue.isChecked = it.tuesday
+                    ctvDayWen.isChecked = it.wednesday
+                    ctvDayThu.isChecked = it.thursday
+                    ctvDayFri.isChecked = it.friday
+                    ctvDaySat.isChecked = it.saturday
+                }
+            }
+        }
+
+    }
+
+    private fun setAlarm(alarm: Alarm?) = with(binding){
+        if(alarm == null){
+            tpAlarm.minute += 1
+        } else {
+            tpAlarm.apply {
+                hour = alarm.hour
+                minute = alarm.minute
+            }
+            sbVolume.progress = alarm.sound
+            cbVibration.isChecked = alarm.vibration
+            viewModel.targetDayOfWeek.value = alarm.repetition
+        }
     }
 
     private fun handleEvent(event: CreationAlarmViewModel.Event) = when (event) {
@@ -38,7 +75,7 @@ class CreationAlarmFragment : BaseFragment<FragmentCreationAlarmBinding, Creatio
     }
 
     private fun modifyDayOfWeek(view: View) = with(binding){
-        viewModel.targetDayOfWeek.apply {
+        viewModel.targetDayOfWeek.value.apply {
             when(view.id){
                 ctvDayMon.id -> monday = !monday
                 ctvDayTue.id -> tuesday = !tuesday
@@ -54,7 +91,7 @@ class CreationAlarmFragment : BaseFragment<FragmentCreationAlarmBinding, Creatio
 
     private fun completeCreationAlarm(alarm: Alarm){
         setUseAlarm(alarm)
-        view?.showSnackBar("알람이 생성되었습니다.")
+        view?.showSnackBar("알람이 변경되었습니다.")
         popBackStack()
     }
 
@@ -90,7 +127,7 @@ class CreationAlarmFragment : BaseFragment<FragmentCreationAlarmBinding, Creatio
                 }
             }
 
-            viewModel.targetDayOfWeek.apply {
+            viewModel.targetDayOfWeek.value.apply {
                 sunday = ctvDaySun.isChecked
                 monday = ctvDayMon.isChecked
                 tuesday = ctvDayTue.isChecked
@@ -104,19 +141,13 @@ class CreationAlarmFragment : BaseFragment<FragmentCreationAlarmBinding, Creatio
         viewModel.setDayOfWeek()
     }
 
-    private fun getDayOfWeek(): DayOfWeek = with(binding) {
-        return DayOfWeek(
-            monday = ctvDayMon.isChecked, tuesday = ctvDayTue.isChecked,
-            wednesday = ctvDayWen.isChecked, thursday = ctvDayThu.isChecked,
-            friday = ctvDayFri.isChecked, saturday = ctvDaySat.isChecked,
-            sunday = ctvDaySun.isChecked
-        )
-    }
-
     private fun createAlarm() = with(binding){
-        val days = getDayOfWeek()
-        val alarm = Alarm(0, true, tpAlarm.hour, tpAlarm.minute, days, sbVolume.progress, cbVibration.isChecked)
-        viewModel.createAlarm(alarm)
+        val alarm = Alarm(args.alarm?.id ?: 0, true, tpAlarm.hour, tpAlarm.minute, viewModel.targetDayOfWeek.value, sbVolume.progress, cbVibration.isChecked)
+        if(args.alarm != null){
+            viewModel.updateAlarm(alarm)
+        } else{
+            viewModel.createAlarm(alarm)
+        }
     }
 
     private fun onClick(view: View) = with(binding){

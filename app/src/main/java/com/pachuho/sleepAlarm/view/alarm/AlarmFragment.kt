@@ -1,17 +1,9 @@
 package com.pachuho.sleepAlarm.view.alarm
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import com.pachuho.sleepAlarm.ViewModelFactory
 import com.pachuho.sleepAlarm.base.BaseFragment
@@ -20,7 +12,6 @@ import com.pachuho.sleepAlarm.data.datasource.model.Time
 import com.pachuho.sleepAlarm.data.repository.AlarmRepository
 import com.pachuho.sleepAlarm.utils.*
 import com.pachuho.sleepAlarm.view.alarm.AlarmViewModel.Event
-import com.pachuho.sleepAlarm.view.main.MainViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import sleepAlarm.R
@@ -56,7 +47,8 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
 
         alarms.forEach {
             if(it.use){
-                val (day, hour, minute, none) = calculateTime(currentDayOfWeek, it.repetition!!, currentTime, Time(it.hour, it.minute))
+                val (day, hour, minute, none) = calculateTime(currentDayOfWeek,
+                    it.repetition, currentTime, Time(it.hour, it.minute))
                 val h = "%02d".format(if (hour < 12) hour else hour - 12)
                 val m = "%02d".format(minute)
                 val tempSum = day + h.toInt() + m.toInt()
@@ -80,27 +72,15 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
         viewModel.timeFromNow.value = getDiffComment(minDay, minHour, minMinute, minNone)
     }
 
-    private fun navigate(fragName: String) = with(findNavController()){
-        when(fragName){
-            "creation" -> navigate(R.id.action_alarmFragment_to_creationAlarmFragment)
-        }
-    }
-
-    private fun updateAlarm(alarm: Alarm) = with(findNavController()){
-//        val action =
-    }
-
-    private fun completeDeletingAlarm(){
-        view?.showSnackBar(getString(R.string.comment_remove_alarm))
-        setAlarm(viewModel.alarms)
+    private fun navigate(alarm: Alarm?) = with(findNavController()){
+        val action = AlarmFragmentDirections.actionAlarmFragmentToCreationAlarmFragment(alarm)
+        navigate(action)
     }
 
     private fun handleEvent(event: Event) = when (event) {
         is Event.ShowSnackBar -> view?.showSnackBar(event.text)
         is Event.GetAlarms -> setAlarm(event.alarms as ArrayList<Alarm>)
-        is Event.DeleteAlarms -> completeDeletingAlarm()
-        is Event.UpdateAlarms -> updateAlarm(event.alarm)
-        is Event.MoveFragment -> navigate(event.fragName)
+        is Event.MoveCreationFragment -> navigate(event.alarm)
     }
 
     override fun onStart() {

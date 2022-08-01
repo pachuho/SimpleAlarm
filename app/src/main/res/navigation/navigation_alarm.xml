@@ -27,7 +27,13 @@
     <fragment
         android:id="@+id/creationAlarmFragment"
         android:name="com.pachuho.sleepAlarm.view.creation.CreationAlarmFragment"
-        tools:layout="@layout/fragment_creation_alarm"/>
+        tools:layout="@layout/fragment_creation_alarm">
+        <argument
+            android:name="alarm"
+            app:argType="com.pachuho.sleepAlarm.data.datasource.model.Alarm"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/goOffFragment"
         android:name="com.pachuho.sleepAlarm.view.gooff.GoOffFragment"
