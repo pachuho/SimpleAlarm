@@ -7,19 +7,19 @@
 <div align="center">Simple Alarm 앱은 MVVM 아키텍처 패턴에 기반한 "알라미" 클론앱입니다.</div> 
 
 # 📱 Previews
-<figure class="half">
+<p float="left">
 <img src="https://user-images.githubusercontent.com/52353492/182881366-e809c050-4cee-40f2-8b58-d0c8203c63f1.png" width="360" height="800"/>
 　　　
 <img src="https://user-images.githubusercontent.com/52353492/182881413-ffba9cbe-e657-44fb-95fa-fc68677ef8fb.png" width="360" height="800"/>
-</figure>
+</p>
 
 <br>
 
-<figure class="half">
+<p float="left">
 <img src="https://user-images.githubusercontent.com/52353492/182881432-c1748054-60c1-4cd6-8bbc-c4a099ce36c4.png" width="360" height="800"/>
 　　　
 <img src="https://user-images.githubusercontent.com/52353492/182881447-690d5769-6ed4-4fb1-a20e-c0d1f77e8af8.png" width="360" height="800"/>
-</figure>
+</p>
 
 [comment]: <> (#🔥 Download)
 
