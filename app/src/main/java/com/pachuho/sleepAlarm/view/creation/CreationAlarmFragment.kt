@@ -52,20 +52,21 @@ class CreationAlarmFragment : BaseFragment<FragmentCreationAlarmBinding, Creatio
                 }
             }
         }
-
     }
 
     private fun setAlarm(alarm: Alarm?) = with(binding){
         if(alarm == null){
             tpAlarm.minute += 1
         } else {
-            tpAlarm.apply {
-                hour = alarm.hour
-                minute = alarm.minute
-            }
             sbVolume.progress = alarm.sound
             cbVibration.isChecked = alarm.vibration
             viewModel.targetDayOfWeek.value = alarm.repetition
+
+            tpAlarm.apply {
+                hour = alarm.hour
+                minute = alarm.minute
+                viewModel.onTimeChanged(alarm.hour, alarm.minute)
+            }
         }
     }
 
@@ -91,7 +92,7 @@ class CreationAlarmFragment : BaseFragment<FragmentCreationAlarmBinding, Creatio
 
     private fun completeCreationAlarm(alarm: Alarm){
         setUseAlarm(alarm)
-        view?.showSnackBar("알람이 변경되었습니다.")
+        view?.showSnackBar("알람이 생성되었습니다.")
         popBackStack()
     }
 
