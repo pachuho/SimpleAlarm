@@ -5,7 +5,6 @@ import com.pachuho.sleepAlarm.base.BaseViewModel
 import com.pachuho.sleepAlarm.data.datasource.model.Alarm
 import com.pachuho.sleepAlarm.data.repository.AlarmRepository
 import com.pachuho.sleepAlarm.support.AlarmAdapter
-import com.pachuho.sleepAlarm.view.alarm.AlarmViewModel.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -38,7 +37,8 @@ class AlarmViewModel(
         }
 
         override fun onDeleteAlarm(alarm: Alarm) {
-            checkUsingAlarm(alarm)
+            alarm.use = false
+            deleteAlarm(alarm)
         }
 
         override fun onUpdateAlarm(alarm: Alarm) {
@@ -73,28 +73,17 @@ class AlarmViewModel(
         CoroutineScope(Dispatchers.IO).launch {
             alarmRepository.updateAlarm(alarm).run {
                 event(Event.GetAlarms(alarms))
-            }
-        }
-    }
-
-    fun checkUsingAlarm(alarm: Alarm){
-        CoroutineScope(Dispatchers.IO).launch {
-            if(alarm.use){
-                alarm.use = false
-                alarmRepository.updateAlarm(alarm).run {
-                    deleteAlarm(alarm)
-                }
-            } else{
-                deleteAlarm(alarm)
+                event(Event.SetUsingAlarm(alarm))
             }
         }
     }
 
     private fun deleteAlarm(alarm: Alarm){
         CoroutineScope(Dispatchers.IO).launch {
-                alarmRepository.deleteAlarm(alarm).run {
-//                event(Event.DeleteAlarms(alarm))
-                    Event.ShowSnackBar("알람이 삭제되었습니다.")
+            alarmRepository.deleteAlarm(alarm).run {
+                alarms.remove(alarm)
+                Event.ShowSnackBar("알람이 삭제되었습니다.")
+                event(Event.SetUsingAlarm(alarm))
             }
         }
     }
@@ -109,6 +98,7 @@ class AlarmViewModel(
         data class ShowSnackBar(val text: String) : Event()
         data class GetAlarms(val alarms: List<Alarm>) : Event()
         data class MoveCreationFragment(val alarm: Alarm?) : Event()
+        data class SetUsingAlarm(val alarm: Alarm) : Event()
     }
 
     override fun onCleared() {

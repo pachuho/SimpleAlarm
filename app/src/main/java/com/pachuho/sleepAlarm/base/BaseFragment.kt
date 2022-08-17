@@ -89,7 +89,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes 
             requireContext(),
             alarm.id,
             Intent(requireContext(), AlarmReceiver::class.java),
-            PendingIntent.FLAG_NO_CREATE
+            PendingIntent.FLAG_IMMUTABLE
         )
         pendingIntent?.cancel()
     }
@@ -97,9 +97,5 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object{
-        private const val M_ALARM_REQUEST_CODE = 1001
     }
 }

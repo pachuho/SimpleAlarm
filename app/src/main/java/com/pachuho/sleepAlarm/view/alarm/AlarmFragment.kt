@@ -81,6 +81,7 @@ class AlarmFragment : BaseFragment<FragmentAlarmBinding, AlarmViewModel>(R.layou
         is Event.ShowSnackBar -> view?.showSnackBar(event.text)
         is Event.GetAlarms -> setAlarm(event.alarms as ArrayList<Alarm>)
         is Event.MoveCreationFragment -> navigate(event.alarm)
+        is Event.SetUsingAlarm -> setUseAlarm(event.alarm)
     }
 
     override fun onStart() {
