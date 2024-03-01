@@ -1,0 +1,262 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.pachuho.sleepAlarm.view.creation.CreationAlarmFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.pachuho.sleepAlarm.view.creation.CreationAlarmViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_blue">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp">
+
+            <ImageButton
+                android:id="@+id/ib_back_press"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back"
+                android:padding="10dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TimePicker
+                android:id="@+id/tp_alarm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"
+                android:onTimeChanged="@{(v, hour, minute) -> vm.onTimeChanged(hour, minute)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ib_back_press"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tv_repetition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repetition"
+                style="@style/TextViewStyle"
+                app:layout_constraintTop_toTopOf="@id/tv_every_day"
+                app:layout_constraintBottom_toBottomOf="@id/tv_every_day"
+                app:layout_constraintStart_toStartOf="@id/ctv_day_mon" />
+
+            <TextView
+                android:id="@+id/tv_every_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/every_day"
+                style="@style/TextViewStyle"
+                app:layout_constraintTop_toTopOf="@id/cb_every_day"
+                app:layout_constraintBottom_toBottomOf="@id/cb_every_day"
+                app:layout_constraintEnd_toStartOf="@id/cb_every_day" />
+
+            <CheckBox
+                android:id="@+id/cb_every_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintTop_toBottomOf="@id/tp_alarm"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/ctv_day_sun"/>
+
+            <CheckedTextView
+                android:onClick="@{(v)->vm.setToggle(v)}"
+                android:id="@+id/ctv_day_mon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="월"
+                android:checked="true"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                style="@style/AlarmRepetition"
+                app:layout_constraintTop_toBottomOf="@id/tv_repetition"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ctv_day_tue"/>
+
+            <CheckedTextView
+                android:onClick="@{(v)->vm.setToggle(v)}"
+                android:id="@+id/ctv_day_tue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="화"
+                android:checked="true"
+                style="@style/AlarmRepetition"
+                app:layout_constraintTop_toBottomOf="@id/tv_repetition"
+                app:layout_constraintStart_toEndOf="@id/ctv_day_mon"
+                app:layout_constraintEnd_toStartOf="@id/ctv_day_wen"/>
+
+            <CheckedTextView
+                android:onClick="@{(v)->vm.setToggle(v)}"
+                android:id="@+id/ctv_day_wen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수"
+                android:checked="true"
+                style="@style/AlarmRepetition"
+                app:layout_constraintTop_toBottomOf="@id/tv_repetition"
+                app:layout_constraintStart_toEndOf="@id/ctv_day_tue"
+                app:layout_constraintEnd_toStartOf="@id/ctv_day_thu"/>
+
+            <CheckedTextView
+                android:onClick="@{(v)->vm.setToggle(v)}"
+                android:id="@+id/ctv_day_thu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="목"
+                android:checked="true"
+                style="@style/AlarmRepetition"
+                app:layout_constraintTop_toBottomOf="@id/tv_repetition"
+                app:layout_constraintStart_toEndOf="@id/ctv_day_wen"
+                app:layout_constraintEnd_toStartOf="@id/ctv_day_fri"/>
+
+            <CheckedTextView
+                android:onClick="@{(v)->vm.setToggle(v)}"
+                android:id="@+id/ctv_day_fri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="금"
+                android:checked="true"
+                style="@style/AlarmRepetition"
+                app:layout_constraintTop_toBottomOf="@id/tv_repetition"
+                app:layout_constraintStart_toEndOf="@id/ctv_day_thu"
+                app:layout_constraintEnd_toStartOf="@id/ctv_day_sat"/>
+
+            <CheckedTextView
+                android:onClick="@{(v)->vm.setToggle(v)}"
+                android:id="@+id/ctv_day_sat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="토"
+                style="@style/AlarmRepetition"
+                app:layout_constraintTop_toBottomOf="@id/tv_repetition"
+                app:layout_constraintStart_toEndOf="@id/ctv_day_fri"
+                app:layout_constraintEnd_toStartOf="@id/ctv_day_sun"/>
+
+            <CheckedTextView
+                android:onClick="@{(v)->vm.setToggle(v)}"
+                android:id="@+id/ctv_day_sun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="일"
+
+                style="@style/AlarmRepetition"
+                app:layout_constraintTop_toBottomOf="@id/tv_repetition"
+                app:layout_constraintStart_toEndOf="@id/ctv_day_sat"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:text="@{vm.timeFromNow}"
+                android:layout_marginVertical="15dp"
+                android:paddingVertical="5dp"
+                android:background="@drawable/border_creation_text"
+                app:layout_constraintTop_toBottomOf="@id/ctv_day_sun"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <View
+                android:id="@+id/view_line_1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/gray"
+                app:layout_constraintTop_toBottomOf="@id/tv_count"
+                app:layout_constraintBottom_toTopOf="@id/cl_setting_volume"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_setting_volume"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingVertical="15dp"
+                android:paddingHorizontal="10dp"
+                app:layout_constraintTop_toBottomOf="@id/view_line_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/border_alarm_item">
+
+                <ImageView
+                    android:id="@+id/iv_volume"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_volume"/>
+
+                <SeekBar
+                    android:id="@+id/sb_volume"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:progress="100"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_volume"
+                    app:layout_constraintEnd_toStartOf="@id/view_line_volume"/>
+
+                <View
+                    android:id="@+id/view_line_volume"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/gray"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_vibration"/>
+
+                <ImageView
+                    android:id="@+id/iv_vibration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_vibration_24"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/cb_vibration"/>
+
+                <CheckBox
+                    android:id="@+id/cb_vibration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/iv_volume"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_volume"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/btn_creation_save"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="저장"
+                style="@style/ButtonStyle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

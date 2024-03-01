@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_alarm"
+    app:startDestination="@id/alarmFragment">
+
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="com.pachuho.sleepAlarm.view.alarm.AlarmFragment"
+        android:label="fragment_alarm"
+        tools:layout="@layout/fragment_alarm">
+        <action
+            android:id="@+id/action_alarmFragment_to_creationAlarmFragment"
+            app:destination="@id/creationAlarmFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_alarmFragment_to_goOffFragment"
+            app:destination="@id/goOffFragment"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/creationAlarmFragment"
+        android:name="com.pachuho.sleepAlarm.view.creation.CreationAlarmFragment"
+        tools:layout="@layout/fragment_creation_alarm">
+        <argument
+            android:name="alarm"
+            app:argType="com.pachuho.sleepAlarm.data.datasource.model.Alarm"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/goOffFragment"
+        android:name="com.pachuho.sleepAlarm.view.gooff.GoOffFragment"
+        android:label="fragment_go_off"
+        tools:layout="@layout/fragment_go_off" />
+</navigation>

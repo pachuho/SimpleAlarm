@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">SleepAlram</string>
+    <string name="app_name">SleepAlarm</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="test">테스트입니다</string>
+    <string name="repetition">반복</string>
+    <string name="every_day">매일</string>
+    <string name="creation_count_time">지금부터 1분 이내로 알람이 울립니다.</string>
+    <string name="time_start">지금부터 </string>
+    <string name="time_hour">시간 </string>
+    <string name="time_minute">분 </string>
+    <string name="time_end">이내로 알람이 울립니다.</string>
+    <string name="menu_remove">삭제</string>
+    <string name="comment_remove_alarm">알람이 삭제되었습니다.</string>
 </resources>
