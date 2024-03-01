@@ -52,6 +52,7 @@ class CreationAlarmFragment : BaseFragment<FragmentCreationAlarmBinding, Creatio
                 }
             }
         }
+
     }
 
     private fun setAlarm(alarm: Alarm?) = with(binding){

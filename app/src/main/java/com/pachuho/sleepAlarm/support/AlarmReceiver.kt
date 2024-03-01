@@ -28,6 +28,7 @@ class AlarmReceiver: BroadcastReceiver() {
 
     }
 
+
     override fun onReceive(context: Context, intent: Intent) {
         Timber.e("test!!!, onReceive")
         // 채널 생성
