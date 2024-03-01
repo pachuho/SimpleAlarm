@@ -1,5 +1,6 @@
 package com.pachuho.sleepAlarm.data.datasource.model
 
+import android.app.PendingIntent
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.ColumnInfo

@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.pachuho.sleepAlarm.data.datasource.model.Alarm
+import com.pachuho.sleepAlarm.data.datasource.model.Time
 import sleepAlarm.R
 import sleepAlarm.databinding.ItemAlarmBinding
+import timber.log.Timber
 
 abstract class AlarmAdapter : ListAdapter<Alarm, AlarmAdapter.AlarmItemViewHolder>(diffUtil) {
     abstract fun onCheckUsing(id: Int, use: Boolean)
@@ -48,9 +50,10 @@ abstract class AlarmAdapter : ListAdapter<Alarm, AlarmAdapter.AlarmItemViewHolde
     }
 
     private fun removeItem(alarm: Alarm){
-        val currentList = currentList.toMutableList()
-        currentList.remove(alarm)
+        val newList = currentList.toMutableList()
+        newList.remove(alarm)
         submitList(currentList)
+        submitList(newList)
         onDeleteAlarm(alarm)
     }
 

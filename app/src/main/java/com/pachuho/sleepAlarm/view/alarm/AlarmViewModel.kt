@@ -72,8 +72,8 @@ class AlarmViewModel(
     fun updateAlarm(alarm: Alarm){
         CoroutineScope(Dispatchers.IO).launch {
             alarmRepository.updateAlarm(alarm).run {
-                event(Event.GetAlarms(alarms))
                 event(Event.SetUsingAlarm(alarm))
+                event(Event.GetAlarms(alarms))
             }
         }
     }
@@ -83,7 +83,7 @@ class AlarmViewModel(
             alarmRepository.deleteAlarm(alarm).run {
                 alarms.remove(alarm)
                 Event.ShowSnackBar("알람이 삭제되었습니다.")
-                event(Event.SetUsingAlarm(alarm))
+                event(Event.SetUsingAlarm(alarm)) // 알람 해제
             }
         }
     }

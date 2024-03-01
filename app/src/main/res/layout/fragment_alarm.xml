@@ -62,7 +62,7 @@
             android:id="@+id/fab_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:src="@drawable/ic_baseline_add_24"
             android:backgroundTint="@color/floating_color"
             app:layout_constraintBottom_toBottomOf="parent"

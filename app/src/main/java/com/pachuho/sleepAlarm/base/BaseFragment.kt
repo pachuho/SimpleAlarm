@@ -1,5 +1,6 @@
 package com.pachuho.sleepAlarm.base
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
@@ -28,7 +29,8 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes 
 
     protected abstract val viewModel: VM
 
-
+    //알람 매니저 가져오기.
+    private val alarmManager by lazy { requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +51,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes 
     }
 
     private fun onAlarm(alarm: Alarm){
+        Timber.e("onAlarm: ${alarm.id} ${alarm.hour}시 ${alarm.minute}분 알람 울림")
         val calender = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, alarm.hour)
             set(Calendar.MINUTE, alarm.minute)
@@ -60,15 +63,10 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes 
             }
         }
 
-        //알람 매니저 가져오기.
-        val alarmManager = requireContext().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        val intent = Intent(requireContext(), AlarmReceiver::class.java)
-
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext(),
             alarm.id,
-            intent,
+            Intent(requireContext(), AlarmReceiver::class.java),
             PendingIntent.FLAG_IMMUTABLE
         ) // 있으면 새로 만든거로 업데이트
 
@@ -85,13 +83,15 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes 
     }
 
     private fun offAlarm(alarm: Alarm){
+        Timber.e("offAlarm: ${alarm.id} ${alarm.hour}시 ${alarm.minute}분 알람 종료")
         val pendingIntent = PendingIntent.getBroadcast(
             requireContext(),
             alarm.id,
             Intent(requireContext(), AlarmReceiver::class.java),
             PendingIntent.FLAG_IMMUTABLE
         )
-        pendingIntent?.cancel()
+        alarmManager.cancel(pendingIntent)
+        pendingIntent.cancel()
     }
 
     override fun onDestroyView() {
